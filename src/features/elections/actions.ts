@@ -6,7 +6,8 @@ import { electionService } from "./instance";
 import { ElectionUpdates } from "./types";
 
 export async function addElectionAction(formData: FormData) {
-  const { electionName, electionDescription, electionStatus } = getFormData(formData);
+  const { electionName, electionDescription, electionStatus } =
+    getFormData(formData);
 
   const newElection = {
     electionName,
@@ -21,7 +22,8 @@ export async function addElectionAction(formData: FormData) {
 
 export async function editElectionAction(formData: FormData) {
   const electionId = formData.get("electionId") as string;
-  const { electionName, electionDescription, electionStatus } = getFormData(formData);
+  const { electionName, electionDescription, electionStatus } =
+    getFormData(formData);
 
   const updatedElection = {
     electionName,
@@ -33,7 +35,10 @@ export async function editElectionAction(formData: FormData) {
   revalidatePath("/elections");
 }
 
-export async function editElectionDirectAction(id: number, updates: ElectionUpdates) {
+export async function editElectionDirectAction(
+  id: number,
+  updates: ElectionUpdates,
+) {
   await electionService.updateElection(id, updates);
   revalidatePath("/elections");
 }

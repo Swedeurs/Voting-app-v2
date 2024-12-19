@@ -4,6 +4,7 @@ export type Election = {
   electionDescription: string;
   electionStatus: string;
   electionDate: string;
+  electionRepresentatives?: string | null;
 };
 
 export type NewElection = Omit<Election, "id">;

@@ -3,8 +3,8 @@ import { seedRepresentatives } from "@/features/representatives/seed";
 
 async function seedDatabase() {
   console.log("Seeding database...");
-  await seedRepresentatives();
   await seedElections();
+  await seedRepresentatives();
   console.log("Database seeding completed!");
 }
 

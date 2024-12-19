@@ -1,6 +1,5 @@
 "use client";
 
-
 import { electionService } from "../instance";
 import { Election } from "../types";
 import { EditElection } from "./edit-elections";
