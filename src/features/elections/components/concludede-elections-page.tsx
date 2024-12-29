@@ -2,74 +2,41 @@ import { db } from "@/db";
 import { createRepository } from "../repository";
 import HomeButton from "./home-button";
 
-
 export default async function ConcludedElectionsPage() {
   const repository = createRepository(db);
-
-
   const elections = await repository.getAllElections();
-
 
   const concludedElections = elections.filter(
     (election) => election.electionStatus === "Concluded",
   );
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <div style={{ marginBottom: "20px", display: "flex", alignItems: "center" }}>
-        <HomeButton />
-      </div>
-      <h1
-        style={{
-          textAlign: "center",
-          marginBottom: "20px",
-          fontSize: "2rem",
-          fontWeight: "bold",
-          color: "#333",
-          borderBottom: "2px solid #ddd",
-          paddingBottom: "10px",
-        }}
-      >
+    <div className="space-y-8 p-8 bg-gray-100 min-h-screen">
+      <HomeButton />
+      <h1 className="text-3xl font-bold text-center border-b pb-4 text-gray-800">
         Concluded Elections
       </h1>
       {concludedElections.length > 0 ? (
-        concludedElections.map((election) => (
-          <div
-            key={election.id}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              border: "1px solid #ddd",
-              marginBottom: "10px",
-              padding: "8px",
-              borderRadius: "5px",
-              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
-              position: "relative",
-            }}
-          >
+        <div className="space-y-4">
+          {concludedElections.map((election) => (
             <div
-              style={{
-                width: "5px",
-                backgroundColor: "red",
-                borderRadius: "5px 0 0 5px",
-                marginRight: "8px",
-              }}
-            ></div>
-            <div style={{ flex: 1 }}>
-              <h2 style={{ margin: "0 0 4px 0", fontSize: "1.2rem", color: "#333" }}>
+              key={election.id}
+              className="relative border-l-4 border-red-500 bg-white shadow-sm rounded-md p-4"
+            >
+              <h2 className="text-xl font-semibold text-gray-800">
                 {election.electionName}
               </h2>
-              <p style={{ margin: "0 0 4px 0", fontSize: "0.9rem", color: "#666" }}>
+              <p className="text-sm text-gray-600 mt-2">
                 {election.electionDescription}
               </p>
-              <p style={{ margin: 0, fontWeight: "bold", color: "red", fontSize: "0.9rem" }}>
+              <p className="text-sm font-medium text-red-600 mt-2">
                 Status: {election.electionStatus}
               </p>
             </div>
-          </div>
-        ))
+          ))}
+        </div>
       ) : (
-        <p style={{ textAlign: "center", color: "#666" }}>
+        <p className="text-center text-gray-600">
           No concluded elections found.
         </p>
       )}
