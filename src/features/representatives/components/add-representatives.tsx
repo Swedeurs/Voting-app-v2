@@ -27,9 +27,9 @@ export function AddRepresentative() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 border p-4 rounded-md shadow-md bg-white"
+      className="relative border-l-4 border-green-500 bg-white shadow-sm rounded-md p-6 space-y-6"
     >
-      <h2 className="text-xl font-semibold">Add Representative</h2>
+      <h2 className="text-2xl font-semibold text-gray-800">Add Representative</h2>
       <div>
         <label
           htmlFor="name"
@@ -43,7 +43,8 @@ export function AddRepresentative() {
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          placeholder="Enter representative name"
+          className="mt-1 block w-full border border-gray-300 rounded-md p-2 shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
           required
         />
       </div>
@@ -60,14 +61,17 @@ export function AddRepresentative() {
           name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          placeholder="Enter representative email"
+          className="mt-1 block w-full border border-gray-300 rounded-md p-2 shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
           required
         />
       </div>
       <button
         type="submit"
-        className={`w-full bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 ${
-          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+        className={`w-full px-4 py-2 text-sm font-medium text-white rounded-md shadow-sm transition duration-150 ${
+          isSubmitting
+            ? "bg-green-400 cursor-not-allowed opacity-50"
+            : "bg-green-500 hover:bg-green-600"
         }`}
         disabled={isSubmitting}
       >
