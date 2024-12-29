@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
-import { editElectionDirectAction } from "../actions";
+import { editElectionDirectAction, removeElectionAction } from "../actions";
 import { Election } from "../types";
+import HomeButton from "./home-button";
 
 type Props = { election: Election };
 
@@ -38,9 +39,20 @@ export function EditElection({ election }: Props) {
       alert("Failed to conclude election.");
     }
   };
+  const removeElection = async () => {
+    try {
+      await removeElectionAction(election.id);
+      alert("Election removed successfully!");
+    }
+    catch (error) {
+      console.error("Error removing election:", error);
+      alert("Failed to remove election.");
+    }
+  };
 
   return (
     <div className="border border-gray-300 p-4 rounded shadow-sm bg-white hover:shadow-md transition-shadow">
+      <HomeButton />
       {isEditMode ? (
         <div className="space-y-2">
           <input
@@ -97,6 +109,11 @@ export function EditElection({ election }: Props) {
               disabled={status === "Concluded"}
             >
               Conclude
+            </button>
+            <button
+            onClick={removeElection}
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-green-700">
+              Delete
             </button>
           </div>
         </div>
