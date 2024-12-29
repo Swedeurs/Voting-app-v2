@@ -26,8 +26,8 @@ export function ElectionDetail({
   };
 
   return (
-    <section className="min-w-72 p-6 bg-gray-100 rounded shadow-md">
-      <h1 className="text-2xl font-bold mb-4">{election.electionName}</h1>
+    <section className="min-w-72 p-6 bg-gray-100 rounded shadow-md text-black">
+      <h1 className="text-2xl font-bold mb-40">{election.electionName}</h1>
       <p className="mb-2">
         <span className="font-semibold">Description:</span>{" "}
         {election.electionDescription}

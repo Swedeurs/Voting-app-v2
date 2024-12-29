@@ -2,6 +2,7 @@ import { Db } from "@/db";
 import { eq } from "drizzle-orm";
 import { electionTable } from "./schema";
 import { NewElection, ElectionUpdates } from "./types";
+import { representativeTable } from "../representatives/schema";
 
 export function createRepository(db: Db) {
   return {
@@ -39,19 +40,10 @@ export function createRepository(db: Db) {
       return await db.delete(electionTable).where(eq(electionTable.id, id));
     },
     async getElectionRepresentatives(id: number) {
-      const representativeIds = Array.from({ length: 10 }, (_, i) => i + 1);
-
-      const numReps = Math.floor(Math.random() * 10) + 1;
-
-      const assignedReps = representativeIds
-        .sort(() => Math.random() - 0.5)
-        .slice(0, numReps);
-      return assignedReps.map((repId) => ({
-        id: repId,
-        name: `Representative ${repId}`,
-        email: `rep${repId}@example.com`,
-        electionId: id,
-      }));
+      return await db
+        .select()
+        .from(representativeTable)
+        .where(eq(representativeTable.electionId, id));
     },
   };
 }

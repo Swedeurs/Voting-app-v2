@@ -1,4 +1,5 @@
 import { ElectionDetail } from "@/features/elections/components/detail-page";
+import ElectionsList from "@/features/elections/components/elections-list";
 import { electionService } from "@/features/elections/instance";
 
 type Props = {
@@ -7,6 +8,7 @@ type Props = {
 
 export default async function ElectionDetailPage({ params }: Props) {
   const id = Number(params.id);
+
   const election = await electionService.getElectionById(id);
 
   if (!election) {
@@ -35,15 +37,18 @@ export default async function ElectionDetailPage({ params }: Props) {
       acc[rep.id] = Math.floor(Math.random() * 10) + 1;
       return acc;
     },
-    {},
+    {}
   );
 
   return (
-    <ElectionDetail
-      election={election}
-      electionRepresentatives={representatives}
-      initialVotes={initialVotes}
-      representatives={[]}
-    />
+    <>
+      <ElectionsList /> 
+      <ElectionDetail
+        election={election}
+        representatives={representatives}
+        initialVotes={initialVotes}
+        electionRepresentatives={undefined}
+      />
+    </>
   );
 }
