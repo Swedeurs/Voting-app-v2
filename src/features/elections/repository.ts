@@ -22,19 +22,11 @@ export function createRepository(db: Db) {
       await db.delete(electionTable);
     },
     async getElectionById(id: number) {
-      const [election] = await db
+      const election = await db
         .select()
         .from(electionTable)
         .where(eq(electionTable.id, id));
-      return election
-        ? {
-            id: election.id,
-            electionName: election.electionName ?? "",
-            electionDescription: election.electionDescription ?? "",
-            electionStatus: election.electionStatus ?? "",
-            electionDate: election.electionDate ?? "",
-          }
-        : undefined;
+      return election[0];
     },
     async updateElection(id: number, updates: ElectionUpdates) {
       return await db
