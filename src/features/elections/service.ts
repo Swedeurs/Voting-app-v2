@@ -32,10 +32,10 @@ export const createElectionService = (db: Db) => {
       await repository.deleteElection(id);
     },
     getRepresentativesByElectionId: async (id: number) => {
-      const representatives =
-        await representativeService.getAllRepresentatives();
-      return representatives.filter((rep) => rep.id === id);
+      const representatives = await representativeService.getAllRepresentatives();
+      return representatives.filter((rep) => rep.electionId === id);
     },
+    
     updateElectionStatus: async (id: number, status: string) => {
       return await repository.updateElectionStatus(id, status);
     },    

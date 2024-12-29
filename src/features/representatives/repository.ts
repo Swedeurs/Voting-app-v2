@@ -36,6 +36,7 @@ export function createRepresentativeRepository(db: Db) {
             ...representative,
             name: representative.name ?? "",
             email: representative.email ?? "",
+            electionId: representative.electionId ?? 0,
           }
         : undefined;
     },
@@ -61,5 +62,12 @@ export function createRepresentativeRepository(db: Db) {
         .delete(representativeTable)
         .where(eq(representativeTable.id, id));
     },
+    async getRepresentativesByElectionId(electionId: number): Promise<Representative[]> {
+      return await db
+        .select()
+        .from(representativeTable)
+        .where(eq(representativeTable.electionId, electionId));
+    }
+    
   };
 }

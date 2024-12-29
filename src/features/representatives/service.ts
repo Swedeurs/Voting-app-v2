@@ -31,5 +31,9 @@ export const createRepresentativeService = (db: Db) => {
     async deleteRepresentative(id: number): Promise<void> {
       return repository.deleteRepresentative(id);
     },
+    getRepresentativesByElectionId: async (electionId: number) => {
+      return await repository.getRepresentativesByElectionId(electionId);
+    },
+    
   };
 };

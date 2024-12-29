@@ -1,5 +1,6 @@
 import { ElectionDetail } from "@/features/elections/components/detail-page";
 import { electionService } from "@/features/elections/instance";
+import { representativeService } from "@/features/representatives/instance"; // Import representativeService
 
 type Props = {
   params: { id: string };
@@ -18,10 +19,7 @@ export default async function ElectionDetailPage({ params }: Props) {
       </div>
     );
   }
-
-
-  const representatives =
-    await electionService.getRepresentativesByElectionId(id);
+  const representatives = await representativeService.getRepresentativesByElectionId(id);
 
   if (!representatives || representatives.length === 0) {
     return (
@@ -32,7 +30,6 @@ export default async function ElectionDetailPage({ params }: Props) {
     );
   }
 
- 
   const initialVotes = representatives.reduce<Record<number, number>>(
     (acc, rep) => {
       acc[rep.id] = Math.floor(Math.random() * 10) + 1;
@@ -45,6 +42,8 @@ export default async function ElectionDetailPage({ params }: Props) {
     <ElectionDetail
       election={election}
       representatives={representatives}
-      initialVotes={initialVotes} electionRepresentatives={undefined}    />
+      initialVotes={initialVotes} 
+      electionRepresentatives={undefined}
+    />
   );
 }
