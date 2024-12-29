@@ -45,5 +45,13 @@ export function createRepository(db: Db) {
         .from(representativeTable)
         .where(eq(representativeTable.electionId, id));
     },
+    async updateElectionStatus(id: number, status: string) {
+      return await db
+        .update(electionTable)
+        .set({ electionStatus: status })
+        .where(eq(electionTable.id, id))
+        .returning();
+    }
+    
   };
 }

@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { electionService } from "@/features/elections/instance";
 import HomeButton from "./home-button";
+import { setElectionToConcluded } from "@/features/elections/actions";
 
 export default async function ElectionsList() {
   const elections = await electionService.getAllElections();
 
   const sortedElections = elections.sort(
-    (a, b) => new Date(a.electionDate).getTime() - new Date(b.electionDate).getTime()
+    (a, b) =>
+      new Date(a.electionDate).getTime() - new Date(b.electionDate).getTime()
   );
 
   if (sortedElections.length === 0) {
@@ -14,9 +16,11 @@ export default async function ElectionsList() {
   }
 
   return (
-    <div className=" my-8 bg-white">
+    <div className="my-8 bg-white">
       <HomeButton />
-      <h1 className="text-3xl font-semibold text-center mb-8 text-gray-800">Elections List</h1>
+      <h1 className="text-3xl font-semibold text-center mb-8 text-gray-800">
+        Elections List
+      </h1>
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortedElections.map((election) => (
           <li
@@ -25,17 +29,36 @@ export default async function ElectionsList() {
           >
             <div className="absolute top-0 left-0 h-full w-2 bg-green-500 rounded-l-lg"></div>
             <div className="pl-4">
-              <h2 className="text-xl font-semibold text-gray-700">{election.electionName}</h2>
+              <h2 className="text-xl font-semibold text-gray-700">
+                {election.electionName}
+              </h2>
               <p className="text-sm text-gray-500 mt-2">
                 Date: {new Date(election.electionDate).toLocaleDateString()}
               </p>
-              <p className="text-sm text-gray-500">Status: {election.electionStatus}</p>
+              <p className="text-sm text-gray-500">
+                Status: {election.electionStatus}
+              </p>
               <Link
                 href={`/elections/${election.id}`}
                 className="block mt-4 text-green-600 hover:text-green-700 font-medium underline"
               >
                 View Details →
               </Link>
+              {election.electionStatus !== "Concluded" && (
+                <form action={setElectionToConcluded}>
+                  <input
+                    type="hidden"
+                    name="id"
+                    value={election.id.toString()}
+                  />
+                  <button
+                    type="submit"
+                    className="mt-2 inline-block px-4 py-2 text-sm text-white bg-green-500 rounded hover:bg-green-600 transition"
+                  >
+                    Set to Concluded
+                  </button>
+                </form>
+              )}
             </div>
           </li>
         ))}

@@ -36,5 +36,8 @@ export const createElectionService = (db: Db) => {
         await representativeService.getAllRepresentatives();
       return representatives.filter((rep) => rep.id === id);
     },
+    updateElectionStatus: async (id: number, status: string) => {
+      return await repository.updateElectionStatus(id, status);
+    },    
   };
 };

@@ -47,3 +47,14 @@ export async function removeElectionAction(electionId: number) {
   await electionService.deleteElection(electionId);
   revalidatePath("/elections");
 }
+
+
+export async function setElectionToConcluded(formData: FormData) {
+  const id = formData.get("id"); 
+  if (!id || isNaN(Number(id))) {
+    throw new Error(`Invalid election ID: ${id}`);
+  }
+
+  await electionService.updateElectionStatus(Number(id), "Concluded");
+  revalidatePath("/elections");
+}

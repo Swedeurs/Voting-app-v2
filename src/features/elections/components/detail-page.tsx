@@ -25,6 +25,8 @@ export function ElectionDetail({
     }));
   };
 
+  const isConcluded = election.electionStatus === "Concluded";
+
   return (
     <section className="min-w-72 p-6 bg-gray-100 rounded shadow-md text-black">
       <h1 className="text-2xl font-bold mb-40">{election.electionName}</h1>
@@ -48,12 +50,14 @@ export function ElectionDetail({
             <p>
               <span className="font-semibold">Votes:</span> {votes[rep.id]}
             </p>
-            <button
-              onClick={() => handleVote(rep.id)}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-2"
-            >
-              Vote
-            </button>
+            {!isConcluded && (
+              <button
+                onClick={() => handleVote(rep.id)}
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-2"
+              >
+                Vote
+              </button>
+            )}
           </div>
         ))}
       </div>
