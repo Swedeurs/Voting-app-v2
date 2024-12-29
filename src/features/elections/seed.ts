@@ -8,7 +8,7 @@ export async function seedElections() {
       electionName: "Presidential Election 2024",
       electionDescription: "Electing the next president",
       electionStatus: "Active",
-      electionDate: new Date("2024-11-05").toISOString(), // Example date
+      electionDate: new Date("2024-11-05").toISOString(),
     },
     {
       electionName: "City Council Election 2024",
