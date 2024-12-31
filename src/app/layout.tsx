@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "My Awesome App",
+  title: "Voteing App",
   description: "An amazing app built with Next.js 13",
 };
 
