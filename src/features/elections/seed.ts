@@ -9,7 +9,11 @@ export async function seedElections() {
       electionDescription: "Electing the next president",
       electionStatus: "Active",
       electionDate: new Date("2024-11-05").toISOString(),
-      alternatives: JSON.stringify(["Candidate A", "Candidate B", "Candidate C"]),
+      alternatives: JSON.stringify([
+        "Candidate A",
+        "Candidate B",
+        "Candidate C",
+      ]),
     },
     {
       electionName: "City Council Election 2024",
@@ -37,14 +41,21 @@ export async function seedElections() {
       electionDescription: "Selecting members of the state assembly",
       electionStatus: "Active",
       electionDate: new Date("2024-08-22").toISOString(),
-      alternatives: JSON.stringify(["District A Representative", "District B Representative"]),
+      alternatives: JSON.stringify([
+        "District A Representative",
+        "District B Representative",
+      ]),
     },
     {
       electionName: "School Board Election 2024",
       electionDescription: "Choosing members for the school board",
       electionStatus: "Concluded",
       electionDate: new Date("2024-03-05").toISOString(),
-      alternatives: JSON.stringify(["Candidate 1", "Candidate 2", "Candidate 3"]),
+      alternatives: JSON.stringify([
+        "Candidate 1",
+        "Candidate 2",
+        "Candidate 3",
+      ]),
     },
     {
       electionName: "Healthcare Funding Referendum",

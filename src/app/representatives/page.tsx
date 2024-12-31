@@ -15,9 +15,7 @@ export default async function RepresentativesManagementPage() {
       <TopNav />
 
       <div className="p-8 space-y-8">
-
- 
-          <AddRepresentative />
+        <AddRepresentative />
 
         <div>
           <h2 className="text-xl font-semibold text-gray-700 mb-4">

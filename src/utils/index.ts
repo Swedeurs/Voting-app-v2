@@ -7,7 +7,7 @@ export function getFormData(formData: FormData): Record<string, string> {
       if (typeof value === "string") {
         acc[key] = value;
       } else if (value instanceof File) {
-        acc[key] = value.name; 
+        acc[key] = value.name;
       }
       return acc;
     },

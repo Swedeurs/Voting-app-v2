@@ -59,6 +59,6 @@ export function createRepository(db: Db) {
         .set({ alternatives })
         .where(eq(electionTable.id, id))
         .returning();
-    }
+    },
   };
 }

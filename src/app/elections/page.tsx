@@ -35,20 +35,20 @@ export default async function ElectionDetailPage({ params }: Props) {
         acc[rep.id] = Math.floor(Math.random() * 10) + 1;
         return acc;
       },
-      {} as Record<number, number>
+      {} as Record<number, number>,
     ),
     alternatives: alternatives.reduce(
       (acc, alt) => {
         acc[alt] = Math.floor(Math.random() * 10) + 1;
         return acc;
       },
-      {} as Record<string, number>
+      {} as Record<string, number>,
     ),
   };
 
   return (
     <>
-    <TopNav />
+      <TopNav />
       <ElectionDetail
         election={election}
         representatives={representatives}

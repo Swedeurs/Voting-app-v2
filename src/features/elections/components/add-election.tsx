@@ -13,7 +13,9 @@ export function AddElection() {
   const [representatives, setRepresentatives] = useState<
     { id: number; name: string; email: string }[]
   >([]);
-  const [selectedRepresentativeId, setSelectedRepresentativeId] = useState<number | null>(null);
+  const [selectedRepresentativeId, setSelectedRepresentativeId] = useState<
+    number | null
+  >(null);
   const [assignedRepresentatives, setAssignedRepresentatives] = useState<
     { id: number; name: string; email: string }[]
   >([]);
@@ -48,7 +50,9 @@ export function AddElection() {
       return;
     }
 
-    const selectedRep = representatives.find((rep) => rep.id === selectedRepresentativeId);
+    const selectedRep = representatives.find(
+      (rep) => rep.id === selectedRepresentativeId,
+    );
     if (selectedRep) {
       setAssignedRepresentatives([...assignedRepresentatives, selectedRep]);
       setSelectedRepresentativeId(null);
@@ -57,7 +61,7 @@ export function AddElection() {
 
   const removeRepresentative = (index: number) => {
     setAssignedRepresentatives(
-      assignedRepresentatives.filter((_, i) => i !== index)
+      assignedRepresentatives.filter((_, i) => i !== index),
     );
   };
 
@@ -75,7 +79,7 @@ export function AddElection() {
       formData.append("alternatives", JSON.stringify(alternatives));
       formData.append(
         "representatives",
-        JSON.stringify(assignedRepresentatives.map((rep) => rep.id))
+        JSON.stringify(assignedRepresentatives.map((rep) => rep.id)),
       );
 
       await addElectionAction(formData);
@@ -95,7 +99,6 @@ export function AddElection() {
 
   return (
     <div className="relative">
-
       <button
         onClick={() => setIsOpen(true)}
         className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900"
@@ -160,7 +163,9 @@ export function AddElection() {
                 <h4 className="font-medium">Representatives</h4>
                 <select
                   value={selectedRepresentativeId ?? ""}
-                  onChange={(e) => setSelectedRepresentativeId(Number(e.target.value))}
+                  onChange={(e) =>
+                    setSelectedRepresentativeId(Number(e.target.value))
+                  }
                   className="w-full p-2 border border-gray-300 rounded-md"
                 >
                   <option value="" disabled>

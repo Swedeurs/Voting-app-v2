@@ -31,8 +31,8 @@ export default async function ElectionsList() {
             election.electionStatus === "Active"
               ? "bg-green-500"
               : election.electionStatus === "Upcoming"
-              ? "bg-blue-500"
-              : "bg-red-500";
+                ? "bg-blue-500"
+                : "bg-red-500";
 
           return (
             <li

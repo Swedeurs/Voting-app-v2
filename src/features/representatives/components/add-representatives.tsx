@@ -18,7 +18,7 @@ export function AddRepresentative() {
       alert("Representative added successfully!");
       setName("");
       setEmail("");
-      setIsModalOpen(false); 
+      setIsModalOpen(false);
     } catch (error) {
       console.error("Error adding representative:", error);
     } finally {
@@ -44,10 +44,7 @@ export function AddRepresentative() {
             >
               ✕
             </button>
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-6"
-            >
+            <form onSubmit={handleSubmit} className="space-y-6">
               <h2 className="text-2xl font-semibold text-gray-800">
                 Add Representative
               </h2>

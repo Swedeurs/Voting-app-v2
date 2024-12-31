@@ -14,10 +14,10 @@ export async function addElectionAction(formData: FormData) {
   const electionDescription = formData.get("electionDescription") as string;
   const electionStatus = formData.get("electionStatus") as string;
   const representatives = JSON.parse(
-    formData.get("representatives") as string
+    formData.get("representatives") as string,
   ) as number[];
   const alternatives = JSON.parse(
-    formData.get("alternatives") as string
+    formData.get("alternatives") as string,
   ) as string[];
 
   const newElection = {
@@ -40,12 +40,11 @@ export async function addElectionAction(formData: FormData) {
   await db.execute(
     sql`UPDATE ${representativeTable} 
         SET "electionId" = ${electionId}
-        WHERE "id" = ANY (${sql.param(representatives)})`
+        WHERE "id" = ANY (${sql.param(representatives)})`,
   );
 
   revalidatePath("/elections");
 }
-
 
 export async function editElectionAction(formData: FormData) {
   const electionId = formData.get("electionId") as string;
