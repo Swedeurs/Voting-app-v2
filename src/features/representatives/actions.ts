@@ -7,6 +7,10 @@ import { RepresentativeUpdates, NewRepresentative } from "./types";
 
 const representativeRepository = createRepresentativeRepository(db);
 
+export async function getAllRepresentativesAction() {
+  return await representativeRepository.getAllRepresentatives();
+}
+
 export async function addRepresentativeAction(
   rep: NewRepresentative,
 ): Promise<void> {

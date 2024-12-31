@@ -14,6 +14,7 @@ export function createRepository(db: Db) {
         electionDescription: election.electionDescription ?? "",
         electionStatus: election.electionStatus ?? "",
         electionDate: election.electionDate ?? "",
+        electionAlternatives: election.alternatives ?? "",
       }));
     },
     async addElection(newElection: NewElection) {
@@ -51,7 +52,6 @@ export function createRepository(db: Db) {
         .set({ electionStatus: status })
         .where(eq(electionTable.id, id))
         .returning();
-    }
-    
+    },
   };
 }

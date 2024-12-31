@@ -1,13 +1,18 @@
 "use server";
 
+import { db } from "@/db";
+import { electionTable } from "../elections/schema";
+import { representativeTable } from "../representatives/schema";
+import { sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { getFormData } from "@/utils";
-import { electionService } from "./instance";
-import { ElectionUpdates } from "./types";
 
 export async function addElectionAction(formData: FormData) {
-  const { electionName, electionDescription, electionStatus } =
-    getFormData(formData);
+  const electionName = formData.get("electionName") as string;
+  const electionDescription = formData.get("electionDescription") as string;
+  const electionStatus = formData.get("electionStatus") as string;
+  const representatives = JSON.parse(
+    formData.get("representatives") as string
+  ) as number[];
 
   const newElection = {
     electionName,
@@ -16,9 +21,24 @@ export async function addElectionAction(formData: FormData) {
     electionDate: new Date().toISOString(),
   };
 
-  await electionService.addElection(newElection);
+  // Insert election and get its ID
+  const [insertedElection] = await db
+    .insert(electionTable)
+    .values(newElection)
+    .returning({ id: electionTable.id });
+
+  const electionId = insertedElection.id;
+
+  // Ensure representatives array is passed correctly
+  await db.execute(
+    sql`UPDATE ${representativeTable} 
+        SET "electionId" = ${electionId}
+        WHERE "id" = ANY (${sql.param(representatives)})`
+  );
+
   revalidatePath("/elections");
 }
+
 
 export async function editElectionAction(formData: FormData) {
   const electionId = formData.get("electionId") as string;
@@ -48,9 +68,8 @@ export async function removeElectionAction(electionId: number) {
   revalidatePath("/elections");
 }
 
-
 export async function setElectionToConcluded(formData: FormData) {
-  const id = formData.get("id"); 
+  const id = formData.get("id");
   if (!id || isNaN(Number(id))) {
     throw new Error(`Invalid election ID: ${id}`);
   }
