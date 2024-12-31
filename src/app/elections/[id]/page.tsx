@@ -1,3 +1,4 @@
+import { AddElection } from "@/features/elections/components/add-election";
 import { ElectionDetail } from "@/features/elections/components/detail-page";
 import ElectionsList from "@/features/elections/components/elections-list";
 import { electionService } from "@/features/elections/instance";
@@ -37,12 +38,13 @@ export default async function ElectionDetailPage({ params }: Props) {
       acc[rep.id] = Math.floor(Math.random() * 10) + 1;
       return acc;
     },
-    {}
+    {},
   );
 
   return (
     <>
-      <ElectionsList /> 
+      <AddElection />
+      <ElectionsList />
       <ElectionDetail
         election={election}
         representatives={representatives}

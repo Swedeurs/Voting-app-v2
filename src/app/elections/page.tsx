@@ -19,7 +19,8 @@ export default async function ElectionDetailPage({ params }: Props) {
       </div>
     );
   }
-  const representatives = await representativeService.getRepresentativesByElectionId(id);
+  const representatives =
+    await representativeService.getRepresentativesByElectionId(id);
 
   if (!representatives || representatives.length === 0) {
     return (
@@ -35,14 +36,14 @@ export default async function ElectionDetailPage({ params }: Props) {
       acc[rep.id] = Math.floor(Math.random() * 10) + 1;
       return acc;
     },
-    {}
+    {},
   );
 
   return (
     <ElectionDetail
       election={election}
       representatives={representatives}
-      initialVotes={initialVotes} 
+      initialVotes={initialVotes}
       electionRepresentatives={undefined}
     />
   );
