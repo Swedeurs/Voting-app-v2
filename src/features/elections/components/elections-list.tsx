@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { electionService } from "@/features/elections/instance";
+
 import { setElectionToConcluded } from "@/features/elections/actions";
+import HomeButton from "./home-button";
+import { AddElection } from "./add-election";
 
 export default async function ElectionsList() {
   const elections = await electionService.getAllElections();
@@ -16,18 +19,20 @@ export default async function ElectionsList() {
 
   return (
     <div className="my-8 bg-white">
-      <h1 className="text-3xl font-semibold text-center mb-8 text-gray-800">
+      <h1 className="text-3xl font-semibold text-center pt-10 text-gray-800">
         Elections List
       </h1>
+      <div className="flex justify-end items-center pb-8 pr-8">
+        <AddElection />
+      </div>
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortedElections.map((election) => {
-
           const borderColor =
             election.electionStatus === "Active"
               ? "bg-green-500"
               : election.electionStatus === "Upcoming"
-                ? "bg-blue-500"
-                : "bg-red-500";
+              ? "bg-blue-500"
+              : "bg-red-500";
 
           return (
             <li

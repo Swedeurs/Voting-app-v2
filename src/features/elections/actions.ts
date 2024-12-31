@@ -16,15 +16,19 @@ export async function addElectionAction(formData: FormData) {
   const representatives = JSON.parse(
     formData.get("representatives") as string
   ) as number[];
+  const alternatives = JSON.parse(
+    formData.get("alternatives") as string
+  ) as string[];
 
   const newElection = {
     electionName,
     electionDescription,
     electionStatus,
     electionDate: new Date().toISOString(),
+    alternatives: JSON.stringify(alternatives), // Store alternatives as JSON
   };
 
-
+  // Insert the new election into the database
   const [insertedElection] = await db
     .insert(electionTable)
     .values(newElection)
@@ -32,7 +36,7 @@ export async function addElectionAction(formData: FormData) {
 
   const electionId = insertedElection.id;
 
-
+  // Update the representatives' electionId
   await db.execute(
     sql`UPDATE ${representativeTable} 
         SET "electionId" = ${electionId}

@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { createRepository } from "../repository";
 import HomeButton from "./home-button";
+import TopNav from "@/components/top-nav";
 
 export default async function ConcludedElectionsPage() {
   const repository = createRepository(db);
@@ -11,9 +12,9 @@ export default async function ConcludedElectionsPage() {
   );
 
   return (
-    <div className="space-y-8 p-8 bg-gray-100 min-h-screen">
-      <HomeButton />
-      <h1 className="text-3xl font-bold text-center border-b pb-4 text-gray-800">
+    <div>
+      <TopNav />
+      <h1 className="text-3xl font-bold text-center border-b py-4 text-gray-800">
         Concluded Elections
       </h1>
       {concludedElections.length > 0 ? (

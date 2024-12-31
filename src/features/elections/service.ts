@@ -38,5 +38,8 @@ export const createElectionService = (db: Db) => {
     updateElectionStatus: async (id: number, status: string) => {
       return await repository.updateElectionStatus(id, status);
     },
+    addAlternativesToElection: async (id: number, alternatives: string) => {
+      return await repository.addAlternativesToElection(id, alternatives);
+    },
   };
 };

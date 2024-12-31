@@ -3,17 +3,8 @@
 export default function HomeButton() {
   return (
     <button
-      style={{
-        backgroundColor: "#007BFF",
-        color: "white",
-        border: "none",
-        borderRadius: "5px",
-        padding: "8px 12px",
-        fontSize: "0.9rem",
-        cursor: "pointer",
-        textDecoration: "none",
-      }}
       onClick={() => (window.location.href = "/")}
+      className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900 transition"
     >
       Home
     </button>

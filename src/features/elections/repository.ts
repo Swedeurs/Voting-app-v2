@@ -53,5 +53,12 @@ export function createRepository(db: Db) {
         .where(eq(electionTable.id, id))
         .returning();
     },
+    async addAlternativesToElection(id: number, alternatives: string) {
+      return await db
+        .update(electionTable)
+        .set({ alternatives })
+        .where(eq(electionTable.id, id))
+        .returning();
+    }
   };
 }
