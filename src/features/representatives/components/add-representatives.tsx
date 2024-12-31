@@ -29,7 +29,9 @@ export function AddRepresentative() {
       onSubmit={handleSubmit}
       className="relative border-l-4 border-green-500 bg-white shadow-sm rounded-md p-6 space-y-6"
     >
-      <h2 className="text-2xl font-semibold text-gray-800">Add Representative</h2>
+      <h2 className="text-2xl font-semibold text-gray-800">
+        Add Representative
+      </h2>
       <div>
         <label
           htmlFor="name"

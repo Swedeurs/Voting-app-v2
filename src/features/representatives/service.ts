@@ -34,6 +34,5 @@ export const createRepresentativeService = (db: Db) => {
     getRepresentativesByElectionId: async (electionId: number) => {
       return await repository.getRepresentativesByElectionId(electionId);
     },
-    
   };
 };

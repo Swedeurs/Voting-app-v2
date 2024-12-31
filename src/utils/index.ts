@@ -5,9 +5,9 @@ export function getFormData(formData: FormData): Record<string, string> {
   return Array.from(formData.entries()).reduce(
     (acc, [key, value]) => {
       if (typeof value === "string") {
-        acc[key] = value; // Directly assign strings
+        acc[key] = value;
       } else if (value instanceof File) {
-        acc[key] = value.name; // Handle File objects by using their name
+        acc[key] = value.name; 
       }
       return acc;
     },

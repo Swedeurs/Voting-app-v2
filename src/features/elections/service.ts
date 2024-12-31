@@ -14,9 +14,6 @@ export const createElectionService = (db: Db) => {
     getAllElections: async (): Promise<Election[]> => {
       return await repository.getAllElections();
     },
-    deleteAllElections: async () => {
-      await repository.deleteAllElections();
-    },
     getElectionById: async (id: number): Promise<Election | undefined> => {
       const election = await repository.getElectionById(id);
       if (!election) {
@@ -28,16 +25,18 @@ export const createElectionService = (db: Db) => {
       const updates = electionUpdates.parse(rawData);
       return await repository.updateElection(id, updates);
     },
+
     deleteElection: async (id: number) => {
       await repository.deleteElection(id);
     },
     getRepresentativesByElectionId: async (id: number) => {
-      const representatives = await representativeService.getAllRepresentatives();
+      const representatives =
+        await representativeService.getAllRepresentatives();
       return representatives.filter((rep) => rep.electionId === id);
     },
-    
+
     updateElectionStatus: async (id: number, status: string) => {
       return await repository.updateElectionStatus(id, status);
-    },    
+    },
   };
 };

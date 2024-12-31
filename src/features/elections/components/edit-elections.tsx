@@ -43,8 +43,7 @@ export function EditElection({ election }: Props) {
     try {
       await removeElectionAction(election.id);
       alert("Election removed successfully!");
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error removing election:", error);
       alert("Failed to remove election.");
     }
@@ -111,8 +110,9 @@ export function EditElection({ election }: Props) {
               Conclude
             </button>
             <button
-            onClick={removeElection}
-            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-green-700">
+              onClick={removeElection}
+              className="bg-red-600 text-white px-4 py-2 rounded hover:bg-green-700"
+            >
               Delete
             </button>
           </div>

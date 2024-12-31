@@ -24,7 +24,6 @@ export function EditRepresentative({ representative }: Props) {
   };
 
   const cancelEdit = () => {
-
     setName(representative.name);
     setEmail(representative.email);
     setIsEditMode(false);
