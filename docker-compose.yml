@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:latest
-    container_name: talent-dev-postgres
+    container_name: vote_app_V2
     ports:
       - "5432:5432"
     environment:
