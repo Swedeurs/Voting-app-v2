@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Voting App
 
-## Getting Started
+## Overview
+The Voting App is a web application designed to facilitate the management of elections and representatives. It allows users to view elections, manage representatives, and track the status of ongoing and concluded elections. This document provides an overview of the project's structure and functionality.
 
-First, run the development server:
+## Features
+- **Elections Management**:
+  - View detailed information about individual elections.
+  - Add new elections with alternatives and assigned representatives.
+  - Edit elections as needed.
+  - Display a list of all elections categorized by their status (e.g., active, concluded).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Representatives Management**:
+  - Add new representatives with their name and email.
+  - Edit existing representatives' details.
+  - Display a grid of all representatives.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **User Interface**:
+  - Intuitive navigation with a top navigation bar.
+  - Responsive design for accessibility on various devices.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Pages
 
-## Learn More
+#### Home Page (`HomePage`)
+- Provides links to view elections, manage representatives, and view concluded elections.
+- Highlights the purpose of the application.
 
-To learn more about Next.js, take a look at the following resources:
+#### Election Detail Page (`ElectionDetailPage`)
+- Displays details for a specific election including representatives and alternatives.
+- Handles scenarios where an election is not found.
+- Generates initial votes for representatives and alternatives.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Representatives Management Page (`RepresentativesManagementPage`)
+- Allows users to add and edit representatives.
+- Displays a list of all representatives in a grid layout.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Concluded Elections Page (`ConcludedElectionsPage`)
+- Lists all concluded elections with their details.
+- Displays a message if no concluded elections are available.
 
-## Deploy on Vercel
+#### Elections Overview Page (`ElectionsOverviewPage`)
+- Provides a summary of all elections.
+- Includes an edit feature for each election.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Components
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### Add Election (`AddElection`)
+- Modal-based form for adding a new election.
+- Handles input for election name, description, status, alternatives, and assigned representatives.
+
+#### Add Representative (`AddRepresentative`)
+- Modal-based form for adding a new representative.
+- Handles input for representative name and email.
+
+#### Edit Representative (`EditRepresentative`)
+- Editable card for modifying representative details.
+- Includes cancel and save actions.
+
+#### Election Detail (`ElectionDetail`)
+- Displays detailed information about an election.
+- Shows assigned representatives and their votes.
+
+### Services
+
+#### `electionService`
+- Handles API calls related to elections, such as retrieving election details and representatives.
+
+#### Representative Repository (`createRepresentativeRepository`)
+- Provides methods for interacting with the representatives database.
+
+### Database
+- A centralized database (`db`) is used to manage elections and representatives.
+- Repositories abstract data access logic for scalability.
+
+## How to Run the Project
+
+### Prerequisites
+- Node.js installed on your system.
+- A database connection configured in the `db` file.
+
+### Steps
+1. Clone the repository.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+4. Open your browser and navigate to `http://localhost:3000`.
+
+## Deployment
+- The application can be deployed using platforms like Vercel or Netlify.
+- Ensure the database connection is properly configured for production.
+
+## Future Enhancements
+- Implement authentication for secure access.
+- Add search and filter functionality for representatives and elections.
+- Provide analytics and reporting for election results.
+- Optimize performance for handling large datasets.
+
+## Contributing
+Contributions are welcome! Please fork the repository and submit a pull request with your changes.
+
+## License
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+## Contact
+For any queries, please reach out to the project maintainer at [Leo@swederus.se](mailto:Leo@swederus.se).
+
+GitHub: [Swederus](https://github.com/Swederus)
+
