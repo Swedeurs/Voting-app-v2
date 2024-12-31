@@ -5,6 +5,9 @@ import { electionTable } from "../elections/schema";
 import { representativeTable } from "../representatives/schema";
 import { sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { getFormData } from "@/utils";
+import { electionService } from "./instance";
+import { ElectionUpdates } from "./types";
 
 export async function addElectionAction(formData: FormData) {
   const electionName = formData.get("electionName") as string;
@@ -21,7 +24,7 @@ export async function addElectionAction(formData: FormData) {
     electionDate: new Date().toISOString(),
   };
 
-  // Insert election and get its ID
+
   const [insertedElection] = await db
     .insert(electionTable)
     .values(newElection)
@@ -29,7 +32,7 @@ export async function addElectionAction(formData: FormData) {
 
   const electionId = insertedElection.id;
 
-  // Ensure representatives array is passed correctly
+
   await db.execute(
     sql`UPDATE ${representativeTable} 
         SET "electionId" = ${electionId}
