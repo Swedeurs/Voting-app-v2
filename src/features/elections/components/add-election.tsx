@@ -86,7 +86,7 @@ export function AddElection() {
       setStatus("Active");
       setAlternatives([]);
       setAssignedRepresentatives([]);
-      setIsOpen(false); // Close the dialog after submission
+      setIsOpen(false);
     } catch (error) {
       console.error("Error adding election:", error);
       alert("Failed to add election. Please try again.");

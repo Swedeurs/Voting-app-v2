@@ -2,7 +2,7 @@ import Link from "next/link";
 import { electionService } from "@/features/elections/instance";
 
 import { setElectionToConcluded } from "@/features/elections/actions";
-import HomeButton from "./home-button";
+
 import { AddElection } from "./add-election";
 
 export default async function ElectionsList() {

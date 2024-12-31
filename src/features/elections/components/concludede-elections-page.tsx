@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { createRepository } from "../repository";
-import HomeButton from "./home-button";
+
 import TopNav from "@/components/top-nav";
 
 export default async function ConcludedElectionsPage() {
