@@ -1,5 +1,6 @@
-import { seedElections } from "@/features/elections/seed";
-import { seedRepresentatives } from "@/features/representatives/seed";
+
+import { seedElections } from "@/features/elections";
+import { seedRepresentatives } from "@/features/representatives";
 
 async function seedDatabase() {
   console.log("Seeding database...");

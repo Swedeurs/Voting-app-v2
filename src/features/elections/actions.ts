@@ -6,8 +6,9 @@ import { representativeTable } from "../representatives/schema";
 import { sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { getFormData } from "@/utils";
-import { electionService } from "./instance";
+
 import { ElectionUpdates } from "./types";
+import { electionService } from ".";
 
 export async function addElectionAction(formData: FormData) {
   const electionName = formData.get("electionName") as string;

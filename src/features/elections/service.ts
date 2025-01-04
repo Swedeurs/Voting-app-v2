@@ -1,7 +1,8 @@
 import { Db } from "@/db";
 import { createRepository } from "./repository";
 import { NewElection, Election, ElectionUpdates } from "./types";
-import { electionUpdates } from "./zod-validation";
+import { electionUpdates } from ".";
+
 
 export const createElectionService = (db: Db) => {
   const repository = createRepository(db);
