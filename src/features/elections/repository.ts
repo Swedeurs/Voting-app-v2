@@ -1,8 +1,8 @@
 import { Db } from "@/db";
 import { eq } from "drizzle-orm";
-import { electionTable } from "./schema";
-import { NewElection, ElectionUpdates } from "./types";
 import { representativeTable } from "../representatives/schema";
+import { electionTable } from "./schema";
+import { ElectionUpdates, NewElection } from "./types";
 
 export function createRepository(db: Db) {
   return {
@@ -41,6 +41,12 @@ export function createRepository(db: Db) {
       return await db.delete(electionTable).where(eq(electionTable.id, id));
     },
     async getElectionRepresentatives(id: number) {
+      return await db
+        .select()
+        .from(representativeTable)
+        .where(eq(representativeTable.electionId, id));
+    },
+    async getRepresentativesByElectionId(id: number) {
       return await db
         .select()
         .from(representativeTable)

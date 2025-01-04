@@ -1,8 +1,7 @@
 import { Db } from "@/db";
-import type { Election, ElectionUpdates, NewElection } from "./types";
-import { electionUpdates } from "./zod-validation";
 import { createRepository } from "./repository";
-import { representativeService } from "../representatives/instance";
+import { NewElection, Election, ElectionUpdates } from "./types";
+import { electionUpdates } from "./zod-validation";
 
 export const createElectionService = (db: Db) => {
   const repository = createRepository(db);
@@ -30,9 +29,7 @@ export const createElectionService = (db: Db) => {
       await repository.deleteElection(id);
     },
     getRepresentativesByElectionId: async (id: number) => {
-      const representatives =
-        await representativeService.getAllRepresentatives();
-      return representatives.filter((rep) => rep.electionId === id);
+      return await repository.getRepresentativesByElectionId(id);
     },
 
     updateElectionStatus: async (id: number, status: string) => {
