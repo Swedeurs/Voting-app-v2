@@ -1,8 +1,7 @@
 import { Db } from "@/db";
-import { createRepository } from "./repository";
-import { NewElection, Election, ElectionUpdates } from "./types";
-import { electionUpdates } from ".";
 
+import { NewElection, Election, ElectionUpdates } from "./types";
+import { createRepository, electionUpdates } from ".";
 
 export const createElectionService = (db: Db) => {
   const repository = createRepository(db);
@@ -12,7 +11,11 @@ export const createElectionService = (db: Db) => {
       await repository.addElection(newElection);
     },
     getAllElections: async (): Promise<Election[]> => {
-      return await repository.getAllElections();
+      const elections = await repository.getAllElections();
+      return elections.map(election => ({
+        ...election,
+        alternatives: election.electionAlternatives,
+      }));
     },
     getElectionById: async (id: number): Promise<Election | undefined> => {
       const election = await repository.getElectionById(id);
