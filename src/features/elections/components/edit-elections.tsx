@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { editElectionDirectAction, removeElectionAction } from "../actions";
 import { Election } from "../types";
-import HomeButton from "./home-button";
+import HomeButton from "../../../components/home-button";
 
 type Props = { election: Election };
 
