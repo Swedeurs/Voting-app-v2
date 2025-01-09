@@ -1,10 +1,8 @@
-
 import Link from "next/link";
 import { JSX } from "react";
 import { electionService } from "..";
 
-
-export async function ElectionsPage (): Promise<JSX.Element> {
+export async function ElectionsPage(): Promise<JSX.Element> {
   const elections = await electionService.getAllElections();
 
   return (
@@ -23,4 +21,4 @@ export async function ElectionsPage (): Promise<JSX.Element> {
       </ul>
     </div>
   );
-};
+}

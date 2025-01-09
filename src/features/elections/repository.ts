@@ -3,7 +3,6 @@ import { eq } from "drizzle-orm";
 import { ElectionUpdates, NewElection } from "./types";
 import { electionTable, representativeTable } from ".";
 
-
 export function createRepository(db: Db) {
   return {
     async getAllElections() {

@@ -1,17 +1,15 @@
-import { AddRepresentative } from "@/features/representatives/components/add-representatives";
-import { EditRepresentative } from "@/features/representatives/components/edit-representatives";
-import { createRepresentativeRepository } from "@/features/representatives/repository";
-import { Representative } from "@/features/representatives/types";
 import { db } from "@/db";
 import TopNav from "@/components/top-nav";
 
-// Data Fetching Function
+import { createRepresentativeRepository, Representative } from "..";
+import { AddRepresentative } from "./add-representatives";
+import { EditRepresentative } from "./edit-representatives";
+
 export async function getRepresentatives() {
   const representativeRepository = createRepresentativeRepository(db);
   return await representativeRepository.getAllRepresentatives();
 }
 
-// Component for Rendering the Page
 export function RepresentativesManagementPage({
   representatives,
 }: {

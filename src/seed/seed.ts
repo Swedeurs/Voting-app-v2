@@ -1,4 +1,3 @@
-
 import { seedElections } from "@/features/elections";
 import { seedRepresentatives } from "@/features/representatives";
 

@@ -1,14 +1,11 @@
-import ElectionDetailPage from "@/features/elections/components/election-detail-page";
+import { ElectionDetailPage } from "@/features/elections";
 
+type Props = {
+  params: { id: string };
+};
 
-const ElectionPage = () => {
-  return (
-    <ElectionDetailPage
-      params={{
-        id: "1",
-      }}
-    />
-  );
+const ElectionPage = ({ params }: Props) => {
+  return <ElectionDetailPage params={{ id: params.id }} />;
 };
 
 export default ElectionPage;

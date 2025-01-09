@@ -1,8 +1,10 @@
-import { getRepresentatives, RepresentativesManagementPage } from "@/features/representatives/components/representatives-Page";
-
+import {
+  getRepresentatives,
+  RepresentativesManagementPage,
+} from "@/features/representatives";
 
 export default async function SomeOtherPage() {
   const representatives = await getRepresentatives();
 
-  return RepresentativesManagementPage({ representatives });
+  return <RepresentativesManagementPage representatives={representatives} />;
 }

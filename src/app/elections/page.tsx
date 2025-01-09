@@ -1,3 +1,5 @@
-import { ElectionsPage } from "@/features/elections/components/election-page";
+import { ElectionsPage } from "@/features/elections";
 
-return ElectionsPage();
+export default function Page() {
+  return <ElectionsPage />;
+}
