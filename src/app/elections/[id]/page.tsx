@@ -1,11 +1,8 @@
 import { ElectionDetailPage } from "@/features/elections";
 
-type Props = {
-  params: { id: string };
-};
+export default async function ElectionPage({ params }: { params: { id: string } }) {
 
-const ElectionPage = ({ params }: Props) => {
-  return <ElectionDetailPage params={{ id: params.id }} />;
-};
+  const { id } = await Promise.resolve(params); 
 
-export default ElectionPage;
+  return <ElectionDetailPage params={{ id }} />;
+}
