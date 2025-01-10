@@ -3,7 +3,7 @@ import { createRepository } from "../repository";
 import TopNav from "@/components/top-nav";
 import { SeperationDiv } from "@/features/representatives/components/view-representatives";
 
-export default async function ConcludedElectionsPage() {
+export async function ConcludedElectionsPage() {
   const repository = createRepository(db);
   const elections = await repository.getAllElections();
 
