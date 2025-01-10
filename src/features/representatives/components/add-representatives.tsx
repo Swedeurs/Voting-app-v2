@@ -14,7 +14,10 @@ export function AddRepresentative() {
     setIsSubmitting(true);
 
     try {
-      await addRepresentativeAction({ name, email });
+      await addRepresentativeAction({
+        name, email,
+        electionId: 0
+      });
       alert("Representative added successfully!");
       setName("");
       setEmail("");

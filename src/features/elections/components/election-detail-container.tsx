@@ -25,7 +25,9 @@ export async function ElectionDetailContainer({
   const representatives: Representative[] = (
     await electionService.getRepresentativesByElectionId(electionId)
   ).map((rep) => ({
-    ...rep,
+    id: rep.id,
+    name: rep.name,
+    email: rep.email,
     electionId: rep.electionId ?? 0,
   }));
 

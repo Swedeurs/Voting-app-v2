@@ -1,8 +1,8 @@
 import TopNav from "@/components/top-nav";
 import { AddRepresentative } from "./add-representatives";
-import { Representatives, SeperationDiv } from "./representatives-view";
+import { Representatives, SeperationDiv } from "./view-representatives";
 
-export async function RepresentativesManagementPage() {
+export async function RepresentativesPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
       <TopNav />
