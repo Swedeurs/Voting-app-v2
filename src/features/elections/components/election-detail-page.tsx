@@ -1,16 +1,16 @@
 import TopNav from "@/components/top-nav";
-import { ElectionDetailContainer } from "@/features/elections/components/election-detail-container";
 import ElectionsList from "./elections-list";
+import { ElectionDetailContainer } from "./election-detail-container";
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
-export default function ElectionDetailPage({ params }: Props) {
-  const electionId = parseInt(params.id, 10); 
+export async function ElectionDetailPage({ params }: Props) {
+  const resolvedParams = await params;
+  const electionId = parseInt(resolvedParams.id, 10); 
 
   if (isNaN(electionId)) {
-
     return <div>Invalid election ID</div>;
   }
 

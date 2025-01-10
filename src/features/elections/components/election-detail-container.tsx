@@ -1,6 +1,8 @@
 import { ElectionDetail } from "@/features/elections/components/detail-page";
 import { electionService } from "..";
-import { Representative } from "@/features/representatives";
+import { Representative } from "@/features/representatives/types";
+
+
 
 type ElectionDetailContainerProps = {
   electionId: number;
@@ -24,7 +26,7 @@ export async function ElectionDetailContainer({
     await electionService.getRepresentativesByElectionId(electionId)
   ).map((rep) => ({
     ...rep,
-    electionId: rep.electionId ?? 0, 
+    electionId: rep.electionId ?? 0,
   }));
 
   const alternatives: string[] = JSON.parse(election.alternatives || "[]");
@@ -37,13 +39,10 @@ export async function ElectionDetailContainer({
       },
       {},
     ),
-    alternatives: alternatives.reduce<Record<string, number>>(
-      (acc, alt) => {
-        acc[alt] = Math.floor(Math.random() * 10) + 1;
-        return acc;
-      },
-      {},
-    ),
+    alternatives: alternatives.reduce<Record<string, number>>((acc, alt) => {
+      acc[alt] = Math.floor(Math.random() * 10) + 1;
+      return acc;
+    }, {}),
   };
 
   return (

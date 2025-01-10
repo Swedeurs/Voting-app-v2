@@ -1,7 +1,8 @@
 import { Db } from "@/db";
-
 import { NewElection, Election, ElectionUpdates } from "./types";
-import { createRepository, electionUpdates } from ".";
+import { createRepository } from "./repository";
+import { electionUpdates } from "./zod-validation";
+
 
 export const createElectionService = (db: Db) => {
   const repository = createRepository(db);
@@ -12,7 +13,7 @@ export const createElectionService = (db: Db) => {
     },
     getAllElections: async (): Promise<Election[]> => {
       const elections = await repository.getAllElections();
-      return elections.map(election => ({
+      return elections.map((election) => ({
         ...election,
         alternatives: election.electionAlternatives,
       }));
