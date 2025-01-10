@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { createRepository } from "../repository";
-
 import TopNav from "@/components/top-nav";
+import { SeperationDiv } from "@/features/representatives/components/view-representatives";
 
 export default async function ConcludedElectionsPage() {
   const repository = createRepository(db);
@@ -12,7 +12,7 @@ export default async function ConcludedElectionsPage() {
   );
 
   return (
-    <div>
+    <SeperationDiv>
       <TopNav />
       <h1 className="text-3xl font-bold text-center border-b py-4 text-gray-800">
         Concluded Elections
@@ -41,6 +41,6 @@ export default async function ConcludedElectionsPage() {
           No concluded elections found.
         </p>
       )}
-    </div>
+    </SeperationDiv>
   );
 }
