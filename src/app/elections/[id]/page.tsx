@@ -1,3 +1,4 @@
-import ElectionDetailPage from "@/features/elections";
+import { ElectionDetailPage } from "@/features/elections";
+
 
 export default ElectionDetailPage;

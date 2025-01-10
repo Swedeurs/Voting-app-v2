@@ -1,3 +1,3 @@
-import { RepresentativesManagementPage } from "@/features/representatives";
+import { RepresentativesPage } from "@/features/representatives";
 
-  export default RepresentativesManagementPage;
+  export default RepresentativesPage;
