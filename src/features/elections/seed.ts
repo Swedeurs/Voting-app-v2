@@ -1,19 +1,17 @@
-import { db } from "@/db";
-import { electionTable } from "./schema";
+import { Db } from "@/db";
+import { createElectionService } from "./service";
 
-export async function seedElections() {
+export async function seedElections(db: Db) {
   console.log("Seeding elections...");
-  await db.insert(electionTable).values([
+  const electionService = createElectionService(db);
+
+  const elections = [
     {
       electionName: "Presidential Election 2024",
       electionDescription: "Electing the next president",
       electionStatus: "Active",
       electionDate: new Date("2024-11-05").toISOString(),
-      alternatives: JSON.stringify([
-        "Candidate A",
-        "Candidate B",
-        "Candidate C",
-      ]),
+      alternatives: JSON.stringify(["Candidate A", "Candidate B", "Candidate C"]),
     },
     {
       electionName: "City Council Election 2024",
@@ -25,7 +23,7 @@ export async function seedElections() {
     {
       electionName: "Referendum on Climate Policy",
       electionDescription: "Voting on new climate policy measures",
-      electionStatus: "Active",
+      electionStatus: "Concluded",
       electionDate: new Date("2024-06-15").toISOString(),
       alternatives: JSON.stringify(["Yes", "No"]),
     },
@@ -41,21 +39,14 @@ export async function seedElections() {
       electionDescription: "Selecting members of the state assembly",
       electionStatus: "Active",
       electionDate: new Date("2024-08-22").toISOString(),
-      alternatives: JSON.stringify([
-        "District A Representative",
-        "District B Representative",
-      ]),
+      alternatives: JSON.stringify(["District A Representative", "District B Representative"]),
     },
     {
       electionName: "School Board Election 2024",
       electionDescription: "Choosing members for the school board",
       electionStatus: "Concluded",
       electionDate: new Date("2024-03-05").toISOString(),
-      alternatives: JSON.stringify([
-        "Candidate 1",
-        "Candidate 2",
-        "Candidate 3",
-      ]),
+      alternatives: JSON.stringify(["Candidate 1", "Candidate 2", "Candidate 3"]),
     },
     {
       electionName: "Healthcare Funding Referendum",
@@ -85,6 +76,59 @@ export async function seedElections() {
       electionDate: new Date("2024-02-25").toISOString(),
       alternatives: JSON.stringify(["Yes to Reform", "No to Reform"]),
     },
-  ]);
+    {
+      electionName: "City Zoning Policy Referendum",
+      electionDescription: "Voting on changes to city zoning laws",
+      electionStatus: "Upcoming",
+      electionDate: new Date("2024-10-15").toISOString(),
+      alternatives: JSON.stringify(["For Policy", "Against Policy"]),
+    },
+    {
+      electionName: "Environmental Protection Act",
+      electionDescription: "Deciding on new environmental regulations",
+      electionStatus: "Active",
+      electionDate: new Date("2024-06-30").toISOString(),
+      alternatives: JSON.stringify(["Approve", "Reject"]),
+    },
+    {
+      electionName: "Digital Privacy Referendum",
+      electionDescription: "Voting on digital privacy legislation",
+      electionStatus: "Concluded",
+      electionDate: new Date("2024-04-12").toISOString(),
+      alternatives: JSON.stringify(["Support", "Oppose"]),
+    },
+    {
+      electionName: "Infrastructure Funding Vote",
+      electionDescription: "Voting on increased infrastructure funding",
+      electionStatus: "Upcoming",
+      electionDate: new Date("2024-09-20").toISOString(),
+      alternatives: JSON.stringify(["Yes", "No"]),
+    },
+    {
+      electionName: "Public Safety Reform Election",
+      electionDescription: "Electing officials for public safety reform",
+      electionStatus: "Active",
+      electionDate: new Date("2024-08-01").toISOString(),
+      alternatives: JSON.stringify(["Candidate 1", "Candidate 2"]),
+    },
+    {
+      electionName: "Municipal Budget Approval",
+      electionDescription: "Approving the municipal budget for 2025",
+      electionStatus: "Upcoming",
+      electionDate: new Date("2024-12-10").toISOString(),
+      alternatives: JSON.stringify(["Approve", "Reject"]),
+    },
+  ];
+
+  for (const election of elections) {
+    await electionService.addElection({
+      electionName: election.electionName,
+      electionDescription: election.electionDescription,
+      electionStatus: election.electionStatus,
+      electionDate: election.electionDate,
+      alternatives: election.alternatives, 
+    });
+  }
+
   console.log("Elections seeded!");
 }

@@ -8,6 +8,8 @@ export type Election = {
   alternatives: string;
 };
 
+
+
 export type NewElection = Omit<Election, "id">;
 
 export type ElectionUpdates = Partial<Omit<Election, "id">>;
