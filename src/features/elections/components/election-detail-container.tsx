@@ -1,8 +1,7 @@
 import { ElectionDetail } from "@/features/elections/components/detail-page";
-import { electionService } from "..";
+import { electionService } from "@/features/elections";
+import { representativeService } from "@/features/representatives";
 import { Representative } from "@/features/representatives/types";
-
-
 
 type ElectionDetailContainerProps = {
   electionId: number;
@@ -22,14 +21,8 @@ export async function ElectionDetailContainer({
     );
   }
 
-  const representatives: Representative[] = (
-    await electionService.getRepresentativesByElectionId(electionId)
-  ).map((rep) => ({
-    id: rep.id,
-    name: rep.name,
-    email: rep.email,
-    electionId: rep.electionId ?? 0,
-  }));
+  const representatives: Representative[] = await representativeService
+    .getRepresentativesByElectionId(electionId);
 
   const alternatives: string[] = JSON.parse(election.alternatives || "[]");
 

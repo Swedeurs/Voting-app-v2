@@ -1,47 +1,46 @@
 import { Db } from "@/db";
-import { NewElection, Election, ElectionUpdates } from "./types";
-import { createRepository } from "./repository";
-import { electionUpdates } from "./zod-validation";
+import { createElectionRepository } from "./repository";
+import { Election, NewElection, ElectionUpdates } from "./types";
 
-
-export const createElectionService = (db: Db) => {
-  const repository = createRepository(db);
+export function createElectionService(db: Db) {
+  const repository = createElectionRepository(db);
 
   return {
-    addElection: async (newElection: NewElection) => {
-      await repository.addElection(newElection);
+    async addElection(data: NewElection) {
+      return repository.addElection(data);
     },
-    getAllElections: async (): Promise<Election[]> => {
+    async getAllElections(): Promise<Election[]> {
       const elections = await repository.getAllElections();
       return elections.map((election) => ({
         ...election,
-        alternatives: election.electionAlternatives,
+        alternatives: JSON.parse(election.electionAlternatives || "[]"),
       }));
     },
-    getElectionById: async (id: number): Promise<Election | undefined> => {
+    async getElectionById(id: number): Promise<Election | undefined> {
       const election = await repository.getElectionById(id);
-      if (!election) {
-        throw new Error(`Election with ID ${id} not found.`);
+      if (election) {
+        return {
+          ...election,
+          electionName: election.electionName || "",
+          electionDescription: election.electionDescription || "",
+          electionStatus: election.electionStatus || "",
+          electionDate: election.electionDate || "",
+          alternatives: JSON.parse(election.alternatives || "[]"),
+        };
       }
-      return election;
+      return undefined;
     },
-    updateElection: async (id: number, rawData: ElectionUpdates) => {
-      const updates = electionUpdates.parse(rawData);
-      return await repository.updateElection(id, updates);
+    async updateElection(id: number, updates: ElectionUpdates) {
+      return repository.updateElection(id, updates);
     },
-
-    deleteElection: async (id: number) => {
-      await repository.deleteElection(id);
+    async deleteElection(id: number) {
+      return repository.deleteElection(id);
     },
-    getRepresentativesByElectionId: async (id: number) => {
-      return await repository.getRepresentativesByElectionId(id);
+    async concludeElection(id: number) {
+      return repository.updateElectionStatus(id, "Concluded");
     },
-
-    updateElectionStatus: async (id: number, status: string) => {
-      return await repository.updateElectionStatus(id, status);
-    },
-    addAlternativesToElection: async (id: number, alternatives: string) => {
-      return await repository.addAlternativesToElection(id, alternatives);
-    },
+    async updateElectionStatus(id: number, status: string) {
+      return repository.updateElectionStatus(id, status);
+    }
   };
-};
+}

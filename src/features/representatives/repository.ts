@@ -21,6 +21,7 @@ export function createRepresentativeRepository(db: Db) {
         ...rep,
         name: rep.name ?? "",
         email: rep.email ?? "",
+        electionId: rep.electionId ?? 0,
       }));
     },
 
@@ -65,10 +66,14 @@ export function createRepresentativeRepository(db: Db) {
     async getRepresentativesByElectionId(
       electionId: number,
     ): Promise<Representative[]> {
-      return await db
+      const representatives = await db
         .select()
         .from(representativeTable)
         .where(eq(representativeTable.electionId, electionId));
+      return representatives.map((rep) => ({
+        ...rep,
+        electionId: rep.electionId ?? 0,
+      }));
     },
   };
 }

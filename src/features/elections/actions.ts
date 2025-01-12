@@ -1,14 +1,11 @@
 "use server";
 
-import { db } from "@/db";
-import { electionTable } from "../elections/schema";
-import { representativeTable } from "../representatives/schema";
-import { sql } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
-import { getFormData } from "@/utils";
-
-import { ElectionUpdates } from "./types";
 import { electionService } from ".";
+import { representativeService } from "../representatives";
+import { ElectionUpdates, NewElection } from "./types";
+import { revalidatePath } from "next/cache";
+
+const ELECTIONS_PATH = "/elections";
 
 export async function addElectionAction(formData: FormData) {
   const electionName = formData.get("electionName") as string;
@@ -21,45 +18,39 @@ export async function addElectionAction(formData: FormData) {
     formData.get("alternatives") as string,
   ) as string[];
 
-  const newElection = {
+  const newElection: NewElection = {
     electionName,
     electionDescription,
     electionStatus,
     electionDate: new Date().toISOString(),
-    alternatives: JSON.stringify(alternatives), // Store alternatives as JSON
+    alternatives: JSON.stringify(alternatives),
   };
 
-  // Insert the new election into the database
-  const [insertedElection] = await db
-    .insert(electionTable)
-    .values(newElection)
-    .returning({ id: electionTable.id });
+  const createdElection = await electionService.addElection(newElection) as unknown as { id: number };
 
-  const electionId = insertedElection.id;
+  for (const repId of representatives) {
+    await representativeService.updateRepresentative(repId, {
+      electionId: createdElection.id,
+    });
+  }
 
-  // Update the representatives' electionId
-  await db.execute(
-    sql`UPDATE ${representativeTable} 
-        SET "electionId" = ${electionId}
-        WHERE "id" = ANY (${sql.param(representatives)})`,
-  );
-
-  revalidatePath("/elections");
+  revalidatePath(ELECTIONS_PATH);
 }
 
 export async function editElectionAction(formData: FormData) {
-  const electionId = formData.get("electionId") as string;
-  const { electionName, electionDescription, electionStatus } =
-    getFormData(formData);
+  const electionId = Number(formData.get("electionId"));
+  const electionName = formData.get("electionName") as string;
+  const electionDescription = formData.get("electionDescription") as string;
+  const electionStatus = formData.get("electionStatus") as string;
 
-  const updatedElection = {
+  const updates: ElectionUpdates = {
     electionName,
     electionDescription,
     electionStatus,
   };
 
-  await electionService.updateElection(Number(electionId), updatedElection);
-  revalidatePath("/elections");
+  await electionService.updateElection(electionId, updates);
+  revalidatePath(ELECTIONS_PATH);
 }
 
 export async function editElectionDirectAction(
@@ -67,20 +58,20 @@ export async function editElectionDirectAction(
   updates: ElectionUpdates,
 ) {
   await electionService.updateElection(id, updates);
-  revalidatePath("/elections");
+  revalidatePath(ELECTIONS_PATH);
 }
 
 export async function removeElectionAction(electionId: number) {
   await electionService.deleteElection(electionId);
-  revalidatePath("/elections");
+  revalidatePath(ELECTIONS_PATH);
 }
 
 export async function setElectionToConcluded(formData: FormData) {
-  const id = formData.get("id");
-  if (!id || isNaN(Number(id))) {
+  const id = Number(formData.get("id"));
+  if (isNaN(id)) {
     throw new Error(`Invalid election ID: ${id}`);
   }
 
-  await electionService.updateElectionStatus(Number(id), "Concluded");
-  revalidatePath("/elections");
+  await electionService.updateElectionStatus(id, "Concluded");
+  revalidatePath(ELECTIONS_PATH);
 }

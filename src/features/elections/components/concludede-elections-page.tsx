@@ -1,10 +1,10 @@
 import { db } from "@/db";
-import { createRepository } from "../repository";
 import TopNav from "@/components/top-nav";
 import { SeperationDiv } from "@/features/representatives/components/view-representatives";
+import { createElectionRepository } from "../repository";
 
 export async function ConcludedElectionsPage() {
-  const repository = createRepository(db);
+  const repository = createElectionRepository(db);
   const elections = await repository.getAllElections();
 
   const concludedElections = elections.filter(

@@ -1,11 +1,9 @@
 import { Db } from "@/db";
 import { eq } from "drizzle-orm";
-import { ElectionUpdates, NewElection } from "./types";
-import { representativeTable } from "../representatives/schema";
 import { electionTable } from "./schema";
+import { NewElection, ElectionUpdates } from "./types";
 
-
-export function createRepository(db: Db) {
+export function createElectionRepository(db: Db) {
   return {
     async getAllElections() {
       const elections = await db.select().from(electionTable);
@@ -40,18 +38,6 @@ export function createRepository(db: Db) {
     },
     async deleteElection(id: number) {
       return await db.delete(electionTable).where(eq(electionTable.id, id));
-    },
-    async getElectionRepresentatives(id: number) {
-      return await db
-        .select()
-        .from(representativeTable)
-        .where(eq(representativeTable.electionId, id));
-    },
-    async getRepresentativesByElectionId(id: number) {
-      return await db
-        .select()
-        .from(representativeTable)
-        .where(eq(representativeTable.electionId, id));
     },
     async updateElectionStatus(id: number, status: string) {
       return await db
