@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { electionService } from "@/features/elections/instance";
-
 import { setElectionToConcluded } from "@/features/elections/actions";
-
 import { AddElection } from "./add-election";
 
 export default async function ElectionsList() {
